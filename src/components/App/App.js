@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MapBox from './components/MapBox';
+import MapBox from '../MapBox/MapBox';
 import './App.css';
 
 class App extends Component {
