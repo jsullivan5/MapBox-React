@@ -1,40 +1,17 @@
 import React, { Component } from 'react';
 import MapBox from '../MapBox/MapBox';
 import SideBar from '../SideBar/SideBar';
+import { stores } from '../../sweetgreen';
 import './App.css';
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      locationNodes: [],
+      stores: stores
     }
-    this.buildLocationList = this.buildLocationList.bind(this);
     this.getChildFunc = this.getChildFunc.bind(this);
-  }
-
-  buildLocationList(data) {
-    const { flyToStore, createPopUp } = this.state;
-
-    const locationNodes = data.features.map((feature, i) => {
-      const prop = feature.properties
-      const { phone } = prop;
-
-      return (
-        <div key={'listing-' + i} className="item">
-          <a className="title" data-position={i}
-            onClick={() => flyToStore(feature)}
-          >
-            {prop.address}
-          </a>
-          <div>
-            {prop.city} {phone && ' : ' + prop.phoneFormatted}
-          </div>
-        </div>
-      );
-    });
-
-    this.setState({ locationNodes });
+    this.addClass = this.addClass.bind(this);
   }
 
   getChildFunc(func) {
@@ -43,14 +20,18 @@ class App extends Component {
   }
 
   render() {
-    const { locationNodes } = this.state;
+    const { stores, handleListingClick } = this.state;
 
     return (
       <div className="App">
-        <SideBar locationNodes={locationNodes} />
+        <SideBar
+          stores={stores}
+          handleListingClick={handleListingClick}
+        />
         <MapBox
           buildLocationList={this.buildLocationList}
           getChildFunc={this.getChildFunc}
+          stores={stores}
         />
       </div>
     );
