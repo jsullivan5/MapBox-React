@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import mapBoxGl from 'mapbox-gl/dist/mapbox-gl.js';
-import stores from '../../sweetgreen.geojson';
+import { stores } from '../../sweetgreen';
 
 mapBoxGl.accessToken = 'pk.eyJ1IjoianN1bGxpdmFuNSIsImEiOiJjamR6MWc2dmowZDFsMzNtb3RtdTJ3bWR6In0.dNpIQ0o88Vz-eEu2pITqdA';
 
