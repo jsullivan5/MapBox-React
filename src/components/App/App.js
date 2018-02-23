@@ -11,7 +11,6 @@ class App extends Component {
       stores: stores
     }
     this.getChildFunc = this.getChildFunc.bind(this);
-    this.addClass = this.addClass.bind(this);
   }
 
   getChildFunc(func) {
