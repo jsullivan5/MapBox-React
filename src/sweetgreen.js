@@ -1,4 +1,4 @@
-      {
+      export const stores = {
         "type": "FeatureCollection",
         "features": [
           {
@@ -238,4 +238,3 @@
           }
         ]
       }
-
