@@ -5,9 +5,16 @@ class SideBar extends Component {
     super(props);
     this.state = {
       stores: this.props.stores.features,
-      activeStore: ''
+      activeStore: this.props.activeStore
     }
   }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.activeStore !== this.props.activeStore) {
+      this.setState({ activeStore: nextProps.activeStore });
+    }
+  }
+
   buildLocationList() {
     const { stores, activeStore } = this.state;
     const { handleListingClick } = this.props;
@@ -38,7 +45,6 @@ class SideBar extends Component {
   }
 
   render() {
-    const { stores } = this.state;
     const locationNodes = this.buildLocationList();
 
     return (
