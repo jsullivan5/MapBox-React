@@ -8,9 +8,11 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      stores: stores
+      stores: stores,
+      activeStore: ''
     }
     this.getChildFunc = this.getChildFunc.bind(this);
+    this.getActiveStore = this.getActiveStore.bind(this);
   }
 
   getChildFunc(func) {
@@ -18,17 +20,23 @@ class App extends Component {
     this.setState({ [formattedName]: func });
   }
 
+  getActiveStore(storeAddress) {
+    this.setState({ activeStore: storeAddress });
+  }
+
   render() {
-    const { stores, handleListingClick } = this.state;
+    const { stores, handleListingClick, activeStore } = this.state;
 
     return (
       <div className="App">
         <SideBar
           stores={stores}
+          activeStore={activeStore}
+          getActiveStore={this.getActiveStore}
           handleListingClick={handleListingClick}
         />
         <MapBox
-          buildLocationList={this.buildLocationList}
+          getActiveStore={this.getActiveStore}
           getChildFunc={this.getChildFunc}
           stores={stores}
         />
