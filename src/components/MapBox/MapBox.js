@@ -16,7 +16,7 @@ class MapBox extends Component {
   componentDidMount() {
     const { getActiveStore, getChildFunc, stores } = this.props;
 
-    this.map = new mapBoxGl.Map({
+    this.mapBox = new mapBoxGl.Map({
       container: this.mapContainer,
       style: 'mapbox://styles/mapbox/light-v9',
       center: [-77.034084, 38.909671],
@@ -24,9 +24,9 @@ class MapBox extends Component {
     });
 
     // Add the data to your map as a layer
-    this.map.on('load', () => {
+    this.mapBox.on('load', () => {
       // Add the data to your map as a layer
-      this.map.addLayer({
+      this.mapBox.addLayer({
         id: 'locations',
         type: 'symbol',
         // Add a GeoJSON source containing place coordinates and information.
@@ -41,11 +41,9 @@ class MapBox extends Component {
       });
     });
 
-    const mapRef = this.map; // weird this binding in click event
-
-    this.map.on('click', (e) => {
+    this.mapBox.on('click', (e) => {
       // Query all the rendered points in the view
-      const features = mapRef.queryRenderedFeatures(e.point, { layers: ['locations'] });
+      const features = this.mapBox.queryRenderedFeatures(e.point, { layers: ['locations'] });
 
       if (features.length) {
         const clickedPoint = features[0];
@@ -70,11 +68,11 @@ class MapBox extends Component {
   }
 
   componentWillUnmount() {
-    this.map.remove();
+    this.mapBox.remove();
   }
 
   flyToStore(currentFeature) {
-    this.map.flyTo({
+    this.mapBox.flyTo({
       center: currentFeature.geometry.coordinates,
       zoom: 15,
     });
@@ -91,7 +89,7 @@ class MapBox extends Component {
         <h3>Sweetgreen</h3>
         <h4>${currentFeature.properties.address}</h4>
       `)
-      .addTo(this.map);
+      .addTo(this.mapBox);
   }
 
   handleListingClick(listing) {
