@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import MapBox from '../MapBox/MapBox';
 import SideBar from '../SideBar/SideBar';
-import storesGeoJson from '../../sweetgreen';
+import storesGeoJson from '../../sweetgreenGeoJson';
 
 class App extends Component {
   constructor() {
