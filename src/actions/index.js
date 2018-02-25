@@ -3,4 +3,11 @@ export const setActiveStore = store => ({
   payload: store,
 });
 
-export const hello = 'hello';
+export const flyToStore = (map, currentFeature) => (
+  () => {
+    map.flyTo({
+      center: currentFeature.geometry.coordinates,
+      zoom: 15,
+    });
+  }
+);
