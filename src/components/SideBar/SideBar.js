@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
+import propTypes from 'prop-types';
 
 class SideBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
       stores: this.props.stores.features,
-      activeStore: this.props.activeStore
-    }
+      activeStore: this.props.activeStore,
+    };
   }
 
   componentWillReceiveProps(nextProps) {
@@ -60,5 +61,11 @@ class SideBar extends Component {
     );
   }
 }
+
+SideBar.propTypes = {
+  activeStore: propTypes.string.isRequired,
+  handleListingClick: propTypes.func.isRequired,
+  stores: propTypes.object.isRequired,
+};
 
 export default SideBar;
