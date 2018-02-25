@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import MapBox from '../MapBox/MapBox';
 import SideBar from '../SideBar/SideBar';
 import storesGeoJson from '../../sweetgreen';
-import './App.css';
 
 class App extends Component {
   constructor() {
