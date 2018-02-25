@@ -1,4 +1,4 @@
-const activeStoreReducer = (state = '', action) => {
+export default (state = '', action) => {
   switch (action.type) {
     case 'SET_ACTIVE_STORE':
       return action.payload;
@@ -6,5 +6,3 @@ const activeStoreReducer = (state = '', action) => {
       return state;
   }
 };
-
-export default activeStoreReducer;
