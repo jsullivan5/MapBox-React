@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import propTypes from 'prop-types';
 import mapBoxGl from 'mapbox-gl/dist/mapbox-gl.js';
 
 mapBoxGl.accessToken = 'pk.eyJ1IjoianN1bGxpdmFuNSIsImEiOiJjamR6MWc2dmowZDFsMzNtb3RtdTJ3bWR6In0.dNpIQ0o88Vz-eEu2pITqdA';
@@ -105,5 +106,11 @@ class MapBox extends Component {
     );
   }
 }
+
+MapBox.propTypes = {
+  getActiveStore: propTypes.func.isRequired,
+  getChildFunc: propTypes.func.isRequired,
+  stores: propTypes.object.isRequired,
+};
 
 export default MapBox;
