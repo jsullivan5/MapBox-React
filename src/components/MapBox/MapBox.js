@@ -14,7 +14,7 @@ class MapBox extends Component {
   }
 
   componentDidMount() {
-    const { getActiveStore, getChildFunc, stores } = this.props;
+    const { stores, setActiveStore } = this.props;
 
     this.mapBox = new mapBoxGl.Map({
       container: this.mapContainer,
@@ -60,11 +60,9 @@ class MapBox extends Component {
         // the clickedPoint that fired the event listener
         const selectedFeature = clickedPoint.properties.address;
 
-        getActiveStore(selectedFeature);
+        setActiveStore(selectedFeature);
       }
     });
-
-    getChildFunc(this.handleListingClick);
   }
 
   componentWillUnmount() {
@@ -108,8 +106,7 @@ class MapBox extends Component {
 }
 
 MapBox.propTypes = {
-  getActiveStore: propTypes.func.isRequired,
-  getChildFunc: propTypes.func.isRequired,
+  setActiveStore: propTypes.func.isRequired,
   stores: propTypes.object.isRequired,
 };
 
