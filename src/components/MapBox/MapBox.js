@@ -8,13 +8,12 @@ class MapBox extends Component {
   constructor(props) {
     super(props);
 
-    this.flyToStore = this.flyToStore.bind(this);
     this.createPopUp = this.createPopUp.bind(this);
     this.handleListingClick = this.handleListingClick.bind(this);
   }
 
   componentDidMount() {
-    const { stores, setActiveStore } = this.props;
+    const { stores, setActiveStore, flyToStore } = this.props;
 
     this.mapBox = new mapBoxGl.Map({
       container: this.mapContainer,
@@ -48,7 +47,7 @@ class MapBox extends Component {
       if (features.length) {
         const clickedPoint = features[0];
         // 1. Fly to the point
-        this.flyToStore(clickedPoint);
+        flyToStore(this.mapBox, clickedPoint);
         // 2. Close all other popups and display popup for clicked store
         this.createPopUp(clickedPoint);
         // 3. Highlight listing in sidebar (and remove highlight for all other listings)
@@ -69,13 +68,6 @@ class MapBox extends Component {
     this.mapBox.remove();
   }
 
-  flyToStore(currentFeature) {
-    this.mapBox.flyTo({
-      center: currentFeature.geometry.coordinates,
-      zoom: 15,
-    });
-  }
-
   createPopUp(currentFeature) {
     const popUps = document.getElementsByClassName('mapboxgl-popup');
     // Check if there is already a popup on the map and if so, remove it
@@ -91,7 +83,9 @@ class MapBox extends Component {
   }
 
   handleListingClick(listing) {
-    this.flyToStore(listing);
+    const { flyToStore } = this.props;
+
+    flyToStore(this.mapBox, listing);
     this.createPopUp(listing);
   }
 
@@ -107,6 +101,7 @@ class MapBox extends Component {
 
 MapBox.propTypes = {
   setActiveStore: propTypes.func.isRequired,
+  flyToStore: propTypes.func.isRequired,
   stores: propTypes.object.isRequired,
 };
 
