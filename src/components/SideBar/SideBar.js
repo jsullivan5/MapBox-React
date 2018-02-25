@@ -63,11 +63,10 @@ class SideBar extends Component {
       <aside className="sidebar pad2">
         <div className="heading">
           <h1>Our locations</h1>
-          <div className="listings">
-            {locationNodes.length > 0 && locationNodes}
-          </div>
         </div>
-        <div id="listings" className="listings" />
+        <div id="listings" className="listings">
+          {locationNodes.length > 0 && locationNodes}
+        </div>
       </aside>
     );
   }
