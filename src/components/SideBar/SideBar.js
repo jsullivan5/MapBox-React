@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
+import propTypes from 'prop-types';
 
 class SideBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
       stores: this.props.stores.features,
-      activeStore: this.props.activeStore
-    }
+      activeStore: this.props.activeStore,
+    };
+
+    this.handleSideBarAction = this.handleSideBarAction.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -15,29 +18,38 @@ class SideBar extends Component {
     }
   }
 
+  handleSideBarAction(event, store, prop) {
+    const { type, key } = event;
+
+    if (type === 'click' || (type === 'keypress' && key === 'Enter')) {
+      const { handleListingClick } = this.props;
+      handleListingClick(store);
+      this.setState({ activeStore: prop.address });
+    }
+  }
+
   buildLocationList() {
     const { stores, activeStore } = this.state;
-    const { handleListingClick } = this.props;
 
     return stores.map((store, i) => {
-      const prop = store.properties
+      const prop = store.properties;
       const { phone } = prop;
-      const listingId = 'listing-' + i;
+      const listingId = `listing-${i}`;
 
       return (
         <div
           key={listingId}
-          className={`item ${prop.address === activeStore ? 'active': ''}`}
-          onClick={() => {
-            handleListingClick(store);
-            this.setState({ activeStore: prop.address });
-          }}
+          tabIndex={i}
+          role="button"
+          className={`item ${prop.address === activeStore ? 'active' : ''}`}
+          onClick={event => this.handleSideBarAction(event, store, prop)}
+          onKeyPress={event => this.handleSideBarAction(event, store, prop)}
         >
-          <a className="title" data-position={i}>
+          <h4 className="title">
             {prop.address}
-          </a>
+          </h4>
           <div>
-            {prop.city} {phone && ' : ' + prop.phoneFormatted}
+            {prop.city} {phone && ` : ${prop.phoneFormatted}`}
           </div>
         </div>
       );
@@ -48,17 +60,26 @@ class SideBar extends Component {
     const locationNodes = this.buildLocationList();
 
     return (
-      <div className='sidebar pad2'>
-        <div className='heading'>
+      <aside className="sidebar pad2">
+        <div className="heading">
           <h1>Our locations</h1>
-          <div className="listings">
-            {locationNodes.length > 0 && locationNodes}
-          </div>
         </div>
-        <div id='listings' className='listings'></div>
-      </div>
+        <div id="listings" className="listings">
+          {locationNodes.length > 0 && locationNodes}
+        </div>
+      </aside>
     );
   }
 }
+
+SideBar.defaultProps = {
+  handleListingClick: () => { console.log('awaiting handleListingClick'); },
+};
+
+SideBar.propTypes = {
+  activeStore: propTypes.string.isRequired,
+  handleListingClick: propTypes.func,
+  stores: propTypes.object.isRequired,
+};
 
 export default SideBar;

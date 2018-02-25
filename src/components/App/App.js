@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import MapBox from '../MapBox/MapBox';
 import SideBar from '../SideBar/SideBar';
-import { stores } from '../../sweetgreen';
-import './App.css';
+import storesGeoJson from '../../sweetgreenGeoJson';
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      stores: stores,
-      activeStore: ''
-    }
+      stores: storesGeoJson,
+      activeStore: '',
+    };
+
     this.getChildFunc = this.getChildFunc.bind(this);
     this.getActiveStore = this.getActiveStore.bind(this);
   }

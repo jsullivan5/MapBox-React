@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import mapBoxGl from 'mapbox-gl/dist/mapbox-gl.js';
+import propTypes from 'prop-types';
+import mapBoxGl from 'mapbox-gl/dist/mapbox-gl';
 
 mapBoxGl.accessToken = 'pk.eyJ1IjoianN1bGxpdmFuNSIsImEiOiJjamR6MWc2dmowZDFsMzNtb3RtdTJ3bWR6In0.dNpIQ0o88Vz-eEu2pITqdA';
 
@@ -15,39 +16,37 @@ class MapBox extends Component {
   componentDidMount() {
     const { getActiveStore, getChildFunc, stores } = this.props;
 
-    this.map = new mapBoxGl.Map({
+    this.mapBox = new mapBoxGl.Map({
       container: this.mapContainer,
       style: 'mapbox://styles/mapbox/light-v9',
       center: [-77.034084, 38.909671],
-      zoom: 14
+      zoom: 14,
     });
 
     // Add the data to your map as a layer
-    this.map.on('load', (e) => {
+    this.mapBox.on('load', () => {
       // Add the data to your map as a layer
-      this.map.addLayer({
+      this.mapBox.addLayer({
         id: 'locations',
         type: 'symbol',
         // Add a GeoJSON source containing place coordinates and information.
         source: {
           type: 'geojson',
-          data: stores
+          data: stores,
         },
         layout: {
           'icon-image': 'restaurant-15',
           'icon-allow-overlap': true,
-        }
+        },
       });
     });
 
-    const map = this.map; // weird this binding in click event
-
-    this.map.on('click', (e) => {
+    this.mapBox.on('click', (e) => {
       // Query all the rendered points in the view
-      const features = map.queryRenderedFeatures(e.point, { layers: ['locations'] });
+      const features = this.mapBox.queryRenderedFeatures(e.point, { layers: ['locations'] });
 
       if (features.length) {
-        var clickedPoint = features[0];
+        const clickedPoint = features[0];
         // 1. Fly to the point
         this.flyToStore(clickedPoint);
         // 2. Close all other popups and display popup for clicked store
@@ -57,7 +56,8 @@ class MapBox extends Component {
         // if (activeItem[0]) {
         //   activeItem[0].classList.remove('active');
         // }
-        // Find the index of the store.features that corresponds to the clickedPoint that fired the event listener
+        // Find the index of the store.features that corresponds to
+        // the clickedPoint that fired the event listener
         const selectedFeature = clickedPoint.properties.address;
 
         getActiveStore(selectedFeature);
@@ -68,13 +68,13 @@ class MapBox extends Component {
   }
 
   componentWillUnmount() {
-    this.map.remove();
+    this.mapBox.remove();
   }
 
   flyToStore(currentFeature) {
-    this.map.flyTo({
+    this.mapBox.flyTo({
       center: currentFeature.geometry.coordinates,
-      zoom: 15
+      zoom: 15,
     });
   }
 
@@ -85,9 +85,11 @@ class MapBox extends Component {
 
     return new mapBoxGl.Popup({ closeOnClick: false })
       .setLngLat(currentFeature.geometry.coordinates)
-      .setHTML('<h3>Sweetgreen</h3>' +
-        '<h4>' + currentFeature.properties.address + '</h4>')
-      .addTo(this.map);
+      .setHTML(`
+        <h3>Sweetgreen</h3>
+        <h4>${currentFeature.properties.address}</h4>
+      `)
+      .addTo(this.mapBox);
   }
 
   handleListingClick(listing) {
@@ -99,11 +101,16 @@ class MapBox extends Component {
     return (
       <div
         className="map"
-        ref={el => this.mapContainer = el}
-        onClick={this.handleMapClick}
+        ref={(el) => { this.mapContainer = el; }}
       />
     );
   }
 }
+
+MapBox.propTypes = {
+  getActiveStore: propTypes.func.isRequired,
+  getChildFunc: propTypes.func.isRequired,
+  stores: propTypes.object.isRequired,
+};
 
 export default MapBox;
