@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MapBox from '../MapBox/MapBox';
+import MapBoxContainer from '../MapBox/MapBoxContainer';
 import SideBar from '../SideBar/SideBar';
 import storesGeoJson from '../../sweetgreenGeoJson';
 
@@ -35,11 +35,7 @@ class App extends Component {
           getActiveStore={this.getActiveStore}
           handleListingClick={handleListingClick}
         />
-        <MapBox
-          getActiveStore={this.getActiveStore}
-          getChildFunc={this.getChildFunc}
-          stores={stores}
-        />
+        <MapBoxContainer />
       </div>
     );
   }
