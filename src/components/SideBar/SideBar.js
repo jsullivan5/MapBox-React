@@ -45,7 +45,7 @@ class SideBar extends Component {
           onClick={event => this.handleSideBarAction(event, store, prop)}
           onKeyPress={event => this.handleSideBarAction(event, store, prop)}
         >
-          <h4 className="title" data-position={i}>
+          <h4 className="title">
             {prop.address}
           </h4>
           <div>
@@ -74,7 +74,7 @@ class SideBar extends Component {
 }
 
 SideBar.defaultProps = {
-  handleListingClick: f => f,
+  handleListingClick: () => { console.log('awaiting handleListingClick'); },
 };
 
 SideBar.propTypes = {
