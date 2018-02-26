@@ -64,11 +64,12 @@ class SideBar extends Component {
 
 SideBar.propTypes = {
   activeStore: propTypes.string.isRequired,
-  stores: propTypes.object.isRequired,
-  setActiveStore: propTypes.func.isRequired,
-  flyToStore: propTypes.func.isRequired,
-  createPopUp: propTypes.func.isRequired,
   map: propTypes.object.isRequired,
+  stores: propTypes.object.isRequired,
+
+  createPopUp: propTypes.func.isRequired,
+  flyToStore: propTypes.func.isRequired,
+  setActiveStore: propTypes.func.isRequired,
 };
 
 export default SideBar;
