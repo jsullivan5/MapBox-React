@@ -3,8 +3,7 @@ import propTypes from 'prop-types';
 
 class MapBox extends Component {
   componentDidMount() {
-    const { initializeMap } = this.props;
-    this.mapBox = initializeMap(this.mapContainer);
+    this.mapBox = this.props.initializeMap(this.mapContainer);
   }
 
   componentWillUnmount() {
