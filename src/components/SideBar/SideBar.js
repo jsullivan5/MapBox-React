@@ -2,36 +2,26 @@ import React, { Component } from 'react';
 import propTypes from 'prop-types';
 
 class SideBar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      stores: this.props.stores.features,
-      activeStore: this.props.activeStore,
-    };
-
-    this.handleSideBarAction = this.handleSideBarAction.bind(this);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.activeStore !== this.props.activeStore) {
-      this.setState({ activeStore: nextProps.activeStore });
-    }
-  }
-
   handleSideBarAction(event, store, prop) {
+    const {
+      setActiveStore,
+      flyToStore,
+      createPopUp,
+      map,
+    } = this.props;
     const { type, key } = event;
 
     if (type === 'click' || (type === 'keypress' && key === 'Enter')) {
-      const { handleListingClick } = this.props;
-      handleListingClick(store);
-      this.setState({ activeStore: prop.address });
+      setActiveStore(prop.address);
+      flyToStore(map, store);
+      createPopUp(map, store);
     }
   }
 
   buildLocationList() {
-    const { stores, activeStore } = this.state;
+    const { stores, activeStore } = this.props;
 
-    return stores.map((store, i) => {
+    return stores.features.map((store, i) => {
       const prop = store.properties;
       const { phone } = prop;
       const listingId = `listing-${i}`;
@@ -72,14 +62,13 @@ class SideBar extends Component {
   }
 }
 
-SideBar.defaultProps = {
-  handleListingClick: () => { console.log('awaiting handleListingClick'); },
-};
-
 SideBar.propTypes = {
   activeStore: propTypes.string.isRequired,
-  handleListingClick: propTypes.func,
   stores: propTypes.object.isRequired,
+  setActiveStore: propTypes.func.isRequired,
+  flyToStore: propTypes.func.isRequired,
+  createPopUp: propTypes.func.isRequired,
+  map: propTypes.object.isRequired,
 };
 
 export default SideBar;
