@@ -2,36 +2,26 @@ import React, { Component } from 'react';
 import propTypes from 'prop-types';
 
 class SideBar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      stores: this.props.stores.features,
-      activeStore: this.props.activeStore,
-    };
-
-    this.handleSideBarAction = this.handleSideBarAction.bind(this);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.activeStore !== this.props.activeStore) {
-      this.setState({ activeStore: nextProps.activeStore });
-    }
-  }
-
   handleSideBarAction(event, store, prop) {
+    const {
+      setActiveStore,
+      flyToStore,
+      createPopUp,
+      map,
+    } = this.props;
     const { type, key } = event;
 
     if (type === 'click' || (type === 'keypress' && key === 'Enter')) {
-      const { handleListingClick } = this.props;
-      handleListingClick(store);
-      this.setState({ activeStore: prop.address });
+      setActiveStore(prop.address);
+      flyToStore(map, store);
+      createPopUp(map, store);
     }
   }
 
   buildLocationList() {
-    const { stores, activeStore } = this.state;
+    const { stores, activeStore } = this.props;
 
-    return stores.map((store, i) => {
+    return stores.features.map((store, i) => {
       const prop = store.properties;
       const { phone } = prop;
       const listingId = `listing-${i}`;
@@ -39,7 +29,7 @@ class SideBar extends Component {
       return (
         <div
           key={listingId}
-          tabIndex={i}
+          tabIndex={i + 1}
           role="button"
           className={`item ${prop.address === activeStore ? 'active' : ''}`}
           onClick={event => this.handleSideBarAction(event, store, prop)}
@@ -72,14 +62,14 @@ class SideBar extends Component {
   }
 }
 
-SideBar.defaultProps = {
-  handleListingClick: () => { console.log('awaiting handleListingClick'); },
-};
-
 SideBar.propTypes = {
   activeStore: propTypes.string.isRequired,
-  handleListingClick: propTypes.func,
+  map: propTypes.object.isRequired,
   stores: propTypes.object.isRequired,
+
+  createPopUp: propTypes.func.isRequired,
+  flyToStore: propTypes.func.isRequired,
+  setActiveStore: propTypes.func.isRequired,
 };
 
 export default SideBar;
