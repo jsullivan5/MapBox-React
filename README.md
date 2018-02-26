@@ -31,25 +31,25 @@ docker
 ### Installing
 
 ```
-git clone git@github.com:jsullivan5/mapbox.git
+$ git clone git@github.com:jsullivan5/mapbox.git
 
 ```
 
 ```
-npm install
+$ npm install
 ```
 
 Start Dev Server:
 
 ```
-npm start
+$ npm start
 ```
 Or
 ```
-docker build -t sample-app .
+$ docker build -t sample-app .
 ```
 ```
-docker run -it \
+$ docker run -it \
   -v ${PWD}:/usr/src/app \
   -v /usr/src/app/node_modules \
   -p 3000:3000 \
@@ -59,17 +59,17 @@ Stop by killing the dev server
 
 Or
 ```
-docker-compose up -d --build
+$ docker-compose up -d --build
 ```
 To Stop
 ```
-docker-compose stop
+$ docker-compose stop
 ```
 
 ## Running the tests
 
 ```
-npm test
+$ npm test
 ```
 
 ### Break down into end to end tests
@@ -81,21 +81,21 @@ Tests coming soon...
 For an optimized production build:
 
 ```
-npm build
+$ npm build
 ```
 Or for an optimized production Docker image:
 
 ```
-docker build -f Dockerfile-prod -t map-box-prod .
+$ docker build -f Dockerfile-prod -t map-box-prod .
 ```
 
 Spin up the container:
 ```
-docker build -f Dockerfile-prod -t map-box-prod .
+$ docker run -it -p 80:80 --rm map-box-prod
 ```
 Or
 ```
-docker-compose -f docker-compose-prod.yml up -d --build
+$ docker-compose -f docker-compose-prod.yml up -d --build
 ```
 
 ## Built With
