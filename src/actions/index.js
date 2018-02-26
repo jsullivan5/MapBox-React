@@ -1,5 +1,8 @@
 import mapBoxGl from 'mapbox-gl/dist/mapbox-gl';
 import stores from '../sweetgreenGeoJson';
+import environment from '../environment';
+
+mapBoxGl.accessToken = environment.accessToken;
 
 export const setActiveStore = store => ({
   type: 'SET_ACTIVE_STORE',
