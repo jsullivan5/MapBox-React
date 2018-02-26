@@ -9,9 +9,9 @@ const initialState = { stores: storeGeoJson };
 const enhancers = [];
 const middleWare = [thunk];
 
-if (window.__REDUX_DEVTOOLS_EXTENSION__) {
-  enhancers.push(window.__REDUX_DEVTOOLS_EXTENSION__());
-}
+// if (window.__REDUX_DEVTOOLS_EXTENSION__) {
+//   enhancers.push(window.__REDUX_DEVTOOLS_EXTENSION__());
+// }
 
 const composeEnhancers = compose(
   applyMiddleware(...middleWare),
