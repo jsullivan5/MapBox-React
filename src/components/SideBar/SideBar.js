@@ -29,7 +29,7 @@ class SideBar extends Component {
       return (
         <div
           key={listingId}
-          tabIndex={i}
+          tabIndex={i + 1}
           role="button"
           className={`item ${prop.address === activeStore ? 'active' : ''}`}
           onClick={event => this.handleSideBarAction(event, store, prop)}
