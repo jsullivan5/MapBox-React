@@ -39,6 +39,8 @@ git clone git@github.com:jsullivan5/mapbox.git
 npm install
 ```
 
+Start Dev Server:
+
 ```
 npm start
 ```
@@ -61,7 +63,7 @@ docker-compose up -d --build
 ```
 To Stop
 ```
-docker-comose stop
+docker-compose stop
 ```
 
 ## Running the tests
