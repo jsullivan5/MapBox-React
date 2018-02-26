@@ -7,12 +7,7 @@ but not much in regards to React and Redux.  This project React-ifies one of tho
 
 And just for fun, I dockerized it and deployed the project to Amazon's Elastic Container Service.
 
-The deployed application can be viewed at:
-
-Type in browser:
-```
-35.171.159.239
-```
+The deployed application can be viewed at: [AWS ECS Deployment](http://35.172.179.46)
 
 ## Getting Started
 
