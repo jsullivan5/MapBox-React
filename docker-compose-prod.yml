@@ -1,0 +1,11 @@
+version: '3.4'
+
+services:
+
+  sample-app-prod:
+    container_name: map-box-prod
+    build:
+      context: .
+      dockerfile: Dockerfile-prod
+    ports:
+      - '80:80'
