@@ -6,7 +6,7 @@ describe('map reducer', () => {
     const expectedState = {};
     expect(reducer(undefined, {})).toEqual(expectedState);
   });
-  it('should handle SET_ACTIVE_STORE action', () => {
+  it('should handle SET_MAP action', () => {
     const expectedState = { mock: 'map' };
     const mockAction = {
       type: constants.SET_MAP,
