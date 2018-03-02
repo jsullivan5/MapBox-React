@@ -74,7 +74,7 @@ $ npm test
 
 ### Break down into end to end tests
 
-Tests coming soon...
+Unit test done with Jest.  As of now, actions and reducers are the only things being tested.  More coming soon...
 
 ## Deployment
 
