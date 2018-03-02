@@ -74,7 +74,7 @@ $ npm test
 
 ### Break down into end to end tests
 
-Tests coming soon...
+Unit test done with Jest.  As of now, actions and reducers are the only things being tested.  More coming soon...
 
 ## Deployment
 
@@ -103,3 +103,7 @@ $ docker-compose -f docker-compose-prod.yml up -d --build
 * [Create React App](https://github.com/facebook/create-react-app) - Bootstrapped with
 * [React Redux](https://github.com/reactjs/react-redux) - State management
 * [MapBoxGl](https://www.mapbox.com/mapbox-gl-js/api/) - Maps API
+
+## Screen Shots
+
+![](./resources/screenshot.png)
